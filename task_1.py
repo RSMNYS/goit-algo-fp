@@ -115,7 +115,22 @@ class LinkedList:
         return result
 
     def sort(self):
-        self.head = self.merge_sort(self.head)        
+        self.head = self.merge_sort(self.head)
+
+    def merge_sorted_lists(self, n_1, n_2):
+        dummy = Node()
+        tail = dummy
+
+        while n_1 and n_2:
+            if n_1.data < n_2.data:
+                tail.next, n_1 = n_1, n_1.next
+            else:
+                tail.next, n_2 = n_2, n_2.next
+            tail = tail.next
+
+        tail.next = n_1 or n_2
+        self.head = dummy.next
+                
             
 llist = LinkedList()
 llist.insert_at_end(3)
@@ -136,3 +151,19 @@ llist.print_list()
 print('sorted list:')
 llist.sort()
 llist.print_list()
+
+print('join 2 lists and output one sorted')
+
+llist_1 = LinkedList()
+llist_1.insert_at_end(1)
+llist_1.insert_at_end(3)
+
+llist_2 = LinkedList()
+llist_2.insert_at_end(2)
+llist_2.insert_at_end(4)
+llist_2.insert_at_end(6)
+llist_2.insert_at_end(7)
+
+llist = LinkedList()
+llist.merge_sorted_lists(llist_1.head, llist_2.head)
+print(llist.print_list())
